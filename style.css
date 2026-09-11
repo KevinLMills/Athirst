@@ -75,54 +75,75 @@ button { font-family: inherit; cursor: pointer; border: none; }
 }
 
 .start-card {
-  max-width: 480px;
+  max-width: 420px;
   width: 100%;
   text-align: center;
 }
 
-.hands-svg { width: 100%; max-width: 340px; }
-.hand { fill: #D9B27C; }
-.hand-right { fill: #C79B63; }
-.drop { fill: var(--water); }
-.drop-sm { fill: var(--water-deep); }
+.splash-badge {
+  position: relative;
+  width: 300px;
+  margin: 0 auto 8px;
+}
+
+.splash-shape {
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(160deg, var(--water) 0%, var(--water-deep) 100%);
+  clip-path: polygon(
+    50% 2%, 63% 6%, 76% 14%, 88% 26%, 96% 42%, 98% 58%,
+    90% 74%, 78% 86%, 62% 95%, 46% 98%, 30% 93%, 16% 83%,
+    6% 68%, 2% 50%, 6% 32%, 16% 17%, 30% 7%, 40% 3%
+  );
+  padding: 56px 30px 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
 
 .game-title {
-  font-size: 3.2rem;
+  font-size: 2.6rem;
   font-weight: 800;
-  margin: 8px 0 0;
-  color: var(--ink);
+  margin: 0;
+  color: #FFFFFF;
+  text-shadow: 0 2px 0 rgba(20, 93, 160, 0.4);
 }
 
 .partnership-line {
-  margin: 6px 0 2px;
-  color: var(--ink-soft);
-  font-size: 0.95rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.9rem;
 }
 
-.charitywater-badge {
+.logo-chip {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  background: var(--card-bg);
-  border: 2px solid var(--brand-yellow);
+  background: #FFFDF6;
   border-radius: 999px;
-  padding: 8px 20px;
-  margin: 4px 0 28px;
-  text-decoration: none;
-  color: var(--ink);
-  font-weight: 700;
-  font-family: 'Baloo 2', sans-serif;
+  padding: 8px 18px;
+  margin-top: 2px;
+  box-shadow: 0 3px 0 rgba(20, 93, 160, 0.35);
 }
-.cw-icon { width: 18px; height: 18px; fill: var(--brand-yellow-deep); }
 
-.start-buttons { display: flex; gap: 16px; justify-content: center; }
-
-.asset-note {
-  margin-top: 22px;
-  font-size: 0.75rem;
-  color: var(--ink-soft);
-  opacity: 0.75;
+.cw-logo-img {
+  height: 22px;
+  width: auto;
+  display: block;
 }
+
+.splash-drop {
+  position: absolute;
+  width: 26px;
+  height: auto;
+  fill: var(--brand-yellow);
+  z-index: 1;
+}
+.drop-a { top: 6%; right: -4%; transform: rotate(18deg); fill: var(--sky); }
+.drop-b { bottom: 14%; left: -6%; width: 20px; transform: rotate(-25deg); }
+.drop-c { top: 62%; right: 2%; width: 16px; transform: rotate(35deg); fill: var(--sky); }
+
+.start-buttons { display: flex; gap: 16px; justify-content: center; margin-top: 18px; }
 
 /* ---------- Modals ---------- */
 .modal-overlay {
