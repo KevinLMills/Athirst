@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Athirst — in partnership with charity: water</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===================== START SCREEN ===================== -->
+<section id="start-screen" class="screen">
+  <div class="start-card">
+    <div class="hands-illustration" aria-hidden="true">
+      <svg viewBox="0 0 400 160" class="hands-svg">
+        <path class="hand hand-left" d="M40 160 C 40 110, 60 90, 75 70 C 85 55, 95 50, 100 60 C 105 45, 118 45, 120 60 C 124 42, 138 44, 138 62 C 150 50, 160 60, 155 78 C 175 90, 170 120, 150 140 C 140 155, 100 160, 40 160 Z"/>
+        <path class="hand hand-right" d="M360 160 C 360 110, 340 90, 325 70 C 315 55, 305 50, 300 60 C 295 45, 282 45, 280 60 C 276 42, 262 44, 262 62 C 250 50, 240 60, 245 78 C 225 90, 230 120, 250 140 C 260 155, 300 160, 360 160 Z"/>
+        <g class="droplets">
+          <path class="drop" d="M90 30 C 90 42, 78 46, 78 34 C 78 26, 90 12, 90 30 Z"/>
+          <path class="drop drop-sm" d="M130 15 C 130 24, 121 27, 121 18 C 121 12, 130 2, 130 15 Z"/>
+          <path class="drop" d="M310 30 C 310 42, 322 46, 322 34 C 322 26, 310 12, 310 30 Z"/>
+          <path class="drop drop-sm" d="M270 15 C 270 24, 279 27, 279 18 C 279 12, 270 2, 270 15 Z"/>
+        </g>
+      </svg>
+    </div>
+
+    <h1 class="game-title">Athirst</h1>
+    <p class="partnership-line">in partnership with</p>
+    <a class="charitywater-badge" href="https://www.charitywater.org" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" class="cw-icon" aria-hidden="true"><path d="M12 2 C 12 2, 5 11, 5 15.5 C 5 19.6 8.1 22 12 22 C 15.9 22 19 19.6 19 15.5 C 19 11, 12 2, 12 2 Z"/></svg>
+      <span>charity: water</span>
+    </a>
+
+    <div class="start-buttons">
+      <button id="play-btn" class="btn btn-primary">Play</button>
+      <button id="howto-btn" class="btn btn-secondary">How To</button>
+    </div>
+
+    <p class="asset-note">Placeholder mark shown — swap in charity: water's official logo/brand assets before publishing.</p>
+  </div>
+</section>
+
+<!-- ===================== HOW TO MODAL ===================== -->
+<div id="howto-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <h2>How to play</h2>
+    <ul class="howto-list">
+      <li><strong>Your people need water.</strong> Every person drinks from the water bank each turn. If it runs dry, people start to die.</li>
+      <li><strong>Assign workers.</strong> Use the <span class="pill">+</span> / <span class="pill">−</span> buttons on a site to move people there. Unassigned people default to Water Collection.</li>
+      <li><strong>Grow.</strong> When you bank enough surplus water in a turn, your population grows. New occupation sites unlock at population milestones.</li>
+      <li><strong>Build the Water Spout.</strong> Send people to Construction to fund it. It's the win condition — once built, water worries are over.</li>
+      <li><strong>Press End Turn</strong> to advance time and see the results.</li>
+    </ul>
+    <button class="btn btn-primary" id="close-howto">Got it</button>
+  </div>
+</div>
+
+<!-- ===================== GAME SCREEN ===================== -->
+<section id="game-screen" class="screen hidden">
+
+  <header class="topbar">
+    <div class="topbar-title">Athirst</div>
+    <div class="counters" id="counters">
+      <div class="counter" title="Population">
+        <svg class="counter-icon" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+        <span class="counter-value" id="counter-population">0</span>
+      </div>
+      <div class="counter counter-water" title="Water change this turn">
+        <svg class="counter-icon" viewBox="0 0 24 24"><path d="M12 2 C 12 2, 5 11, 5 15.5 C 5 19.6 8.1 22 12 22 C 15.9 22 19 19.6 19 15.5 C 19 11, 12 2, 12 2 Z"/></svg>
+        <span class="counter-value" id="counter-water">0</span>
+      </div>
+      <div class="counter counter-locked" title="Research — unlocks with a future site">
+        <svg class="counter-icon" viewBox="0 0 24 24"><path d="M4 4h8v16H4z"/><path d="M12 4h8v16h-8z" opacity="0.6"/></svg>
+        <span class="counter-value" id="counter-research">0</span>
+      </div>
+      <div class="counter" title="Production change this turn">
+        <svg class="counter-icon" viewBox="0 0 24 24"><path d="M3 21l4-4M14 3l7 7-3 3-7-7 3-3zM9 12l-6 6 3 3 6-6"/></svg>
+        <span class="counter-value" id="counter-production">0</span>
+      </div>
+    </div>
+  </header>
+
+  <div id="turn3-toast" class="toast hidden">
+    Keep enough hands on Water Collection — the well won't fill itself, and everyone still needs to drink.
+  </div>
+
+  <main class="sites">
+
+    <!-- WATER WELL SITE -->
+    <article class="site-card" id="site-well">
+      <div class="site-header">
+        <h2>Water Collection</h2>
+        <div class="worker-badge" id="well-worker-badge">0 workers</div>
+      </div>
+      <div class="site-scene">
+        <svg viewBox="0 0 200 120" class="scene-svg">
+          <rect x="0" y="90" width="200" height="30" class="ground"/>
+          <ellipse cx="100" cy="95" rx="34" ry="10" class="well-mouth"/>
+          <rect x="70" y="60" width="60" height="35" rx="4" class="well-body"/>
+          <ellipse cx="100" cy="60" rx="30" ry="8" class="well-hole"/>
+          <rect x="66" y="35" width="6" height="30" class="well-post"/>
+          <rect x="128" y="35" width="6" height="30" class="well-post"/>
+          <rect x="64" y="30" width="72" height="6" class="well-beam"/>
+        </svg>
+        <div class="villager-row" id="well-villagers"></div>
+      </div>
+      <p class="site-footnote">Each worker collects <strong id="well-rate">4</strong> water per turn.</p>
+    </article>
+
+    <!-- CONSTRUCTION SITE -->
+    <article class="site-card locked" id="site-construction">
+      <div class="site-header">
+        <h2>Construction</h2>
+        <div class="worker-controls">
+          <button class="stepper" id="construction-minus" aria-label="Remove worker">−</button>
+          <div class="worker-badge" id="construction-worker-badge">0 workers</div>
+          <button class="stepper" id="construction-plus" aria-label="Add worker">+</button>
+        </div>
+      </div>
+      <div class="site-scene">
+        <svg viewBox="0 0 200 120" class="scene-svg">
+          <rect x="0" y="90" width="200" height="30" class="ground"/>
+          <rect x="55" y="55" width="90" height="40" class="hut-body"/>
+          <polygon points="45,55 100,25 155,55" class="hut-roof"/>
+          <rect x="90" y="70" width="20" height="25" class="hut-door"/>
+        </svg>
+        <div class="villager-row" id="construction-villagers"></div>
+      </div>
+      <p class="site-footnote" id="construction-footnote">Available at Population <strong id="construction-threshold">5</strong></p>
+    </article>
+
+  </main>
+
+  <section class="spout-progress">
+    <div class="spout-progress-label">
+      <span>Water Spout progress</span>
+      <span id="spout-progress-text">0 / 150</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="spout-progress-fill" style="width:0%"></div>
+    </div>
+  </section>
+
+  <footer class="turnbar">
+    <div class="turn-indicator">Turn <span id="turn-number">1</span></div>
+    <button id="end-turn-btn" class="btn btn-primary btn-large">End Turn</button>
+  </footer>
+
+</section>
+
+<!-- ===================== WIN MODAL ===================== -->
+<div id="win-modal" class="modal-overlay hidden">
+  <div class="modal-box modal-win">
+    <h2>The Water Spout is complete</h2>
+    <p>For the first time, your people's hands are free of the long walk to the well. Every hour once spent hauling water can now go toward learning, building, and caring for one another.</p>
+    <p>This is the real work of <a href="https://www.charitywater.org" target="_blank" rel="noopener">charity: water</a> — building wells and water systems so communities can spend their time on the things that let them grow, not just survive.</p>
+    <a class="btn btn-primary" href="https://www.charitywater.org" target="_blank" rel="noopener">Learn more at charitywater.org</a>
+    <button class="btn btn-secondary" id="continue-after-win">Keep playing</button>
+  </div>
+</div>
+
+<!-- ===================== LOSE MODAL ===================== -->
+<div id="lose-modal" class="modal-overlay hidden">
+  <div class="modal-box modal-lose">
+    <h2>The well ran dry</h2>
+    <p>Without enough hands on water collection, your people couldn't keep up — and without water, nothing else a community builds can last.</p>
+    <p>That bottleneck is real for hundreds of millions of people today. <a href="https://www.charitywater.org" target="_blank" rel="noopener">charity: water</a> works to remove it for good, so communities can spend their time on more than just survival.</p>
+    <button class="btn btn-primary" id="restart-btn">Try again</button>
+  </div>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>

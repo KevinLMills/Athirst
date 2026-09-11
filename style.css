@@ -1,0 +1,385 @@
+:root {
+  --sand: #F3E6C8;
+  --sand-deep: #E8D5A8;
+  --sky: #BFE3F0;
+  --water: #2E8BC0;
+  --water-deep: #145DA0;
+  --brand-yellow: #FFC700;
+  --brand-yellow-deep: #E0AD00;
+  --earth: #8B5A2B;
+  --earth-deep: #6E4620;
+  --ink: #2B2320;
+  --ink-soft: #5B4E44;
+  --danger: #C0392B;
+  --good: #2E7D32;
+  --card-bg: #FFFDF6;
+  --shadow: rgba(43, 35, 32, 0.18);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: 'Nunito Sans', sans-serif;
+  color: var(--ink);
+  background:
+    linear-gradient(180deg, var(--sky) 0%, var(--sand) 45%);
+}
+
+h1, h2, .btn, .game-title, .turn-indicator, .counter-value {
+  font-family: 'Baloo 2', sans-serif;
+}
+
+.hidden { display: none !important; }
+
+button { font-family: inherit; cursor: pointer; border: none; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  text-decoration: none;
+  text-align: center;
+}
+.btn:active { transform: translateY(1px) scale(0.98); }
+
+.btn-primary {
+  background: var(--brand-yellow);
+  color: var(--ink);
+  box-shadow: 0 4px 0 var(--brand-yellow-deep);
+}
+.btn-primary:hover { box-shadow: 0 5px 0 var(--brand-yellow-deep); transform: translateY(-1px); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--ink);
+  border: 2px solid var(--ink);
+}
+.btn-secondary:hover { background: rgba(43,35,32,0.06); }
+
+.btn-large { font-size: 1.2rem; padding: 14px 36px; }
+
+/* ---------- Start Screen ---------- */
+#start-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.start-card {
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+}
+
+.hands-svg { width: 100%; max-width: 340px; }
+.hand { fill: #D9B27C; }
+.hand-right { fill: #C79B63; }
+.drop { fill: var(--water); }
+.drop-sm { fill: var(--water-deep); }
+
+.game-title {
+  font-size: 3.2rem;
+  font-weight: 800;
+  margin: 8px 0 0;
+  color: var(--ink);
+}
+
+.partnership-line {
+  margin: 6px 0 2px;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.charitywater-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--card-bg);
+  border: 2px solid var(--brand-yellow);
+  border-radius: 999px;
+  padding: 8px 20px;
+  margin: 4px 0 28px;
+  text-decoration: none;
+  color: var(--ink);
+  font-weight: 700;
+  font-family: 'Baloo 2', sans-serif;
+}
+.cw-icon { width: 18px; height: 18px; fill: var(--brand-yellow-deep); }
+
+.start-buttons { display: flex; gap: 16px; justify-content: center; }
+
+.asset-note {
+  margin-top: 22px;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  opacity: 0.75;
+}
+
+/* ---------- Modals ---------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(43, 35, 32, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 50;
+}
+
+.modal-box {
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 32px;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0 20px 40px var(--shadow);
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.modal-box h2 { margin-top: 0; font-size: 1.6rem; }
+.modal-box p { line-height: 1.55; color: var(--ink-soft); }
+.modal-box a { color: var(--water-deep); font-weight: 700; }
+.modal-box .btn { display: block; width: 100%; margin-top: 12px; text-decoration: none; }
+
+.howto-list { padding-left: 20px; line-height: 1.6; }
+.howto-list li { margin-bottom: 10px; }
+.pill {
+  display: inline-block;
+  background: var(--sand-deep);
+  border-radius: 6px;
+  padding: 0 8px;
+  font-weight: 800;
+  font-family: 'Baloo 2', sans-serif;
+}
+
+.modal-win { border-top: 8px solid var(--brand-yellow); }
+.modal-lose { border-top: 8px solid var(--danger); }
+
+/* ---------- Game Screen ---------- */
+#game-screen {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 20px 20px 40px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.topbar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.topbar-title {
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 800;
+  font-size: 1.4rem;
+}
+
+.counters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--card-bg);
+  border-radius: 14px;
+  padding: 8px 16px;
+  box-shadow: 0 2px 0 var(--shadow);
+  flex: 1;
+  min-width: 130px;
+}
+
+.counter-icon { width: 20px; height: 20px; fill: none; stroke: var(--ink-soft); stroke-width: 1.6; }
+.counter-water .counter-icon { fill: var(--water); stroke: none; }
+.counter-locked { opacity: 0.5; }
+
+.counter-value { font-weight: 700; font-size: 1.1rem; }
+
+.toast {
+  background: var(--brand-yellow);
+  color: var(--ink);
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  box-shadow: 0 2px 0 var(--brand-yellow-deep);
+}
+
+.sites {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 620px) {
+  .sites { grid-template-columns: 1fr; }
+}
+
+.site-card {
+  background: var(--card-bg);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 3px 0 var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: opacity 0.2s ease;
+}
+
+.site-card.locked { opacity: 0.55; }
+.site-card.locked .worker-controls { visibility: hidden; }
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.site-header h2 {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.worker-badge {
+  background: var(--sand-deep);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  font-family: 'Baloo 2', sans-serif;
+}
+
+.worker-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stepper {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--brand-yellow);
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--ink);
+  line-height: 1;
+  box-shadow: 0 2px 0 var(--brand-yellow-deep);
+}
+.stepper:disabled {
+  background: var(--sand-deep);
+  box-shadow: none;
+  color: var(--ink-soft);
+  cursor: not-allowed;
+}
+
+.site-scene {
+  background: linear-gradient(180deg, var(--sky) 0%, var(--sand-deep) 100%);
+  border-radius: 12px;
+  padding: 8px 8px 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.scene-svg { width: 100%; height: 90px; display: block; }
+
+.ground { fill: #D9B27C; }
+.well-mouth { fill: var(--water-deep); }
+.well-body { fill: #A9A196; }
+.well-hole { fill: var(--water); }
+.well-post, .well-beam { fill: var(--earth); }
+.hut-body { fill: #D9C08A; }
+.hut-roof { fill: var(--earth); }
+.hut-door { fill: var(--earth-deep); }
+
+.villager-row {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  min-height: 26px;
+  padding: 4px 2px 2px;
+}
+
+.villager-icon { width: 20px; height: 26px; }
+.villager-icon .v-head { fill: #E0B784; }
+.villager-icon .v-body { fill: var(--water-deep); }
+.site-card#site-construction .villager-icon .v-body { fill: var(--earth); }
+
+.villager-overflow {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  align-self: center;
+}
+
+.site-footnote {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+
+.spout-progress {
+  background: var(--card-bg);
+  border-radius: 14px;
+  padding: 14px 18px;
+  box-shadow: 0 2px 0 var(--shadow);
+}
+
+.spout-progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.progress-track {
+  background: var(--sand-deep);
+  border-radius: 999px;
+  height: 14px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  background: linear-gradient(90deg, var(--water), var(--water-deep));
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.turnbar {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--card-bg);
+  border-radius: 18px;
+  padding: 14px 20px;
+  box-shadow: 0 3px 0 var(--shadow);
+}
+
+.turn-indicator {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
