@@ -183,11 +183,34 @@ button { font-family: inherit; cursor: pointer; border: none; }
   gap: 10px;
 }
 
+.topbar-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .topbar-title {
   font-family: 'Baloo 2', sans-serif;
   font-weight: 800;
   font-size: 1.4rem;
 }
+
+.link-btn {
+  background: none;
+  color: var(--ink-soft);
+  text-decoration: underline;
+  font-size: 0.85rem;
+  padding: 4px 6px;
+}
+.link-btn:hover { color: var(--ink); }
+
+.water-bank-row {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  display: flex;
+  gap: 6px;
+}
+.water-bank-row strong { color: var(--water-deep); font-family: 'Baloo 2', sans-serif; }
 
 .counters {
   display: flex;
@@ -211,7 +234,9 @@ button { font-family: inherit; cursor: pointer; border: none; }
 .counter-water .counter-icon { fill: var(--water); stroke: none; }
 .counter-locked { opacity: 0.5; }
 
-.counter-value { font-weight: 700; font-size: 1.1rem; }
+.counter-value { font-weight: 700; font-size: 1.1rem; transition: color 0.3s ease; }
+.counter-value.flash-good { color: var(--good); }
+.counter-value.flash-bad { color: var(--danger); }
 
 .toast {
   background: var(--brand-yellow);
@@ -227,6 +252,10 @@ button { font-family: inherit; cursor: pointer; border: none; }
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
+}
+
+#assignable-sites {
+  display: contents;
 }
 
 @media (max-width: 620px) {
@@ -313,6 +342,18 @@ button { font-family: inherit; cursor: pointer; border: none; }
 .hut-roof { fill: var(--earth); }
 .hut-door { fill: var(--earth-deep); }
 
+.tent-body { fill: #C9A66B; }
+.tent-flap { fill: var(--earth-deep); }
+.tent-scroll { fill: var(--card-bg); stroke: var(--ink-soft); stroke-width: 1.5; }
+
+.gear-body { fill: #B7C4C9; }
+.gear-ring { fill: none; stroke: var(--ink-soft); stroke-width: 3; }
+.gear-hub { fill: var(--earth-deep); }
+
+.temple-body { fill: #E7DAB8; }
+.temple-roof { fill: var(--brand-yellow-deep); }
+.temple-column { fill: #C9A66B; }
+
 .villager-row {
   display: flex;
   gap: 4px;
@@ -339,18 +380,28 @@ button { font-family: inherit; cursor: pointer; border: none; }
   color: var(--ink-soft);
 }
 
-.spout-progress {
+.tracks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 620px) {
+  .tracks { grid-template-columns: 1fr; }
+}
+
+.track-card {
   background: var(--card-bg);
   border-radius: 14px;
   padding: 14px 18px;
   box-shadow: 0 2px 0 var(--shadow);
 }
 
-.spout-progress-label {
+.track-label {
   display: flex;
   justify-content: space-between;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   margin-bottom: 8px;
 }
 
@@ -362,10 +413,17 @@ button { font-family: inherit; cursor: pointer; border: none; }
 }
 
 .progress-fill {
-  background: linear-gradient(90deg, var(--water), var(--water-deep));
   height: 100%;
   border-radius: 999px;
   transition: width 0.4s ease;
+}
+.fill-production { background: linear-gradient(90deg, var(--earth), var(--brand-yellow-deep)); }
+.fill-research { background: linear-gradient(90deg, var(--water), var(--water-deep)); }
+
+.track-next {
+  margin: 8px 0 0;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
 }
 
 .turnbar {
